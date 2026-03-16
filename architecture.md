@@ -10,6 +10,11 @@ WebDev/
 ├── index.html          # 🌟 Main HTML entry point
 ├── style.css           # 🎨 Basic styling (Vanilla CSS)
 ├── script.js           # 🚀 Basic JavaScript logic
+├── docs/               # 📂 Markdown documentation files
+│   ├── manifest.json   # 📜 List of plugins and their docs
+│   └── [plugin_id]/    # 📂 Documents for each plugin
+├── res/                # 🖼️ Static resources (images, icons)
+├── update_docs.py      # 🤖 Script to generate manifest.json
 └── architecture.md     # 📄 This document
 ```
 

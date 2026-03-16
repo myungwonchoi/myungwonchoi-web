@@ -1,7 +1,6 @@
 # ![discord | w-icon](res/rendertracker/discord.svg) 디스코드 Webhook 설정 가이드
 
 디스코드 채널로 RenderTracker 알림을 받는 방법을 안내합니다.  
-(텔레그램이 모바일 알림에 더 최적화되어 있습니다.)
 
 ---
 
