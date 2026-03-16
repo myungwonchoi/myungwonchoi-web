@@ -1,21 +1,20 @@
 # 디스코드 Webhook 설정 가이드
 
 RenderTracker 알림을 디스코드로 받기 위한 가이드입니다.
-
 ---
 
 ## 1. 디스코드 Webhook URL 생성
 
 1.  상단 서버 이름을 클릭하여 서버 설정을 클릭합니다. 또는 서버 채널 우측의 톱니바퀴를 클릭합니다.
 
-    ![서버 설정 | w-400](/dding-one-web/res/rendertracker/discord-serversettings.webp)
-    ![채널 설정 | w-400](/dding-one-web/res/rendertracker/discord-channelsettings.webp)
+    ![서버 설정 | w-400](res/rendertracker/discord-serversettings.webp)
+    ![채널 설정 | w-400](res/rendertracker/discord-channelsettings.webp)
 
 <br>
 
 2.  왼쪽 메뉴에서 **[연동]** 탭을 클릭 후 **[웹후크 만들기]** 버튼을 클릭합니다.
 
-    ![웹후크 만들기 | w-1000](/dding-one-web/res/rendertracker/discord-link.webp)
+    ![웹후크 만들기 | w-1000](res/rendertracker/discord-link.webp)
 
 <br>
 
@@ -23,7 +22,7 @@ RenderTracker 알림을 디스코드로 받기 위한 가이드입니다.
     *   **이름**: Webhook 이름 (예: `RenderTracker`)
     *   **채널**: 알림을 보낼 채널
 
-    ![웹후크 URL 복사 | w-1000](/dding-one-web/res/rendertracker/discord-link-copy.webp)
+    ![웹후크 URL 복사 | w-1000](res/rendertracker/discord-link-copy.webp)
 
 ---
 
