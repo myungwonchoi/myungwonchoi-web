@@ -15,23 +15,19 @@
             "name": "RenderTracker",
             "docs": [
                 {
-                    "label": "Install",
-                    "file": "install.md"
-                },
-                {
                     "label": "Intro",
                     "file": "intro.md"
                 },
                 {
-                    "label": "Usage",
-                    "file": "usage.md"
+                    "label": "Install & Run",
+                    "file": "install&Run.md"
                 },
                 {
-                    "label": "Discord",
+                    "label": "Discord Webhook",
                     "file": "discord.md"
                 },
                 {
-                    "label": "Telegram",
+                    "label": "Telegram Bot",
                     "file": "telegram.md"
                 }
             ]
