@@ -1,33 +1,66 @@
 # ![telegram | w-icon](res/rendertracker/telegram.svg) 텔레그램 Bot 설정 가이드
 
-텔레그램 봇으로 RenderTracker 알림을 받는 방법을 안내합니다.
+텔레그램 봇으로 RenderTracker 알림을 받는 방법을 안내합니다.  
+PC에 텔레그램이 설치되어 있어야 합니다.
 
 ---
 
 ## 1. 내 고유 ID(Chat ID) 확인
 
-1.  **[@userinfobot](https://t.me/userinfobot)** 링크를 클릭합니다. (Chat ID 확인용 봇)
+1.  **[@userinfobot](https://t.me/userinfobot)** 링크에서 **[START BOT]** 버튼을 클릭합니다.
+
+    ![userinfobot | w-400](res/rendertracker/telegram-userinfo-web.webp)
+
+<br>
 
 2.  하단의 **[시작(Start)]** 버튼을 클릭합니다.
 
-3.  나타나는 정보 중 **`Id:123456789`** 의 숫자를 메모합니다.
+    ![userinfobot-start | w-600](res/rendertracker/telegram-userinfo-startbutton.webp)
+
+<br>
+
+3.  나타나는 정보 중 **`Id:*********`** 를 클릭하여 복사합니다.
+
+    ![userinfobot-id | w-600](res/rendertracker/telegram-userinfo-copyid.webp)
 
 ---
 
 ## 2. RenderTracker 봇 생성 (Token 발급)
 
-1.  **[@BotFather](https://t.me/botfather)** 링크를 클릭합니다. (봇 생성용 봇)
+1.  **[@BotFather](https://t.me/botfather)** 링크에서 **[START BOT]** 버튼을 클릭합니다.
+
+    ![botfather | w-400](res/rendertracker/telegram-botfather-web.webp)
+
+<br>
 
 2.  채팅창에 **`/newbot`** 을 입력합니다.
 
+    ![botfather-newbot | w-600](res/rendertracker/telegram-botfather-newbot.webp)
+
+<br>
+
 3.  봇 이름을 입력합니다. (예: **`RenderTracker`**)
 
-4.  봇 아이디를 입력합니다. (반드시 `_bot`으로 끝나야 합니다, 예: **`rendertracker_bot`**)
+    ![botfather-newbot-name | w-600](res/rendertracker/telegram-botfather-name.webp)
 
-5.  성공 메시지에서 **`Use this token ~ HTTP API:`** 뒤의 **`토큰`** 을 메모합니다.  
-(예: **`0123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi`**)
+<br>
 
-6.  성공 메시지에서 봇 링크(예: **`t.me/rendertracker_bot`**)를 클릭 후 **`시작`** 버튼을 클릭합니다.
+4.  봇 username을 입력합니다. (반드시 `_bot`으로 끝나야 합니다, 예: **`rendertracker_bot`**)
+
+    ![botfather-newbot-username | w-600](res/rendertracker/telegram-botfather-username.webp)
+
+<br>
+
+5.  성공 메시지 하단에서 **`Use this token ~`** 뒤의 **`token`** 을 클릭하여 복사합니다.  
+상단의 봇 채팅방 주소를 클릭하여 봇 채팅방으로 이동합니다.  
+
+    ![botfather-newbot-token | w-600](res/rendertracker/telegram-botfather-link-token.webp)
+
+<br>
+
+6.  봇 채팅방에서 **[시작]** 버튼을 클릭합니다.
+
+    ![botfather-newbot-start | w-600](res/rendertracker/telegram-botfather-botstart.webp)
 
 ---
 
