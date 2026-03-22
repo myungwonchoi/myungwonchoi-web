@@ -89,6 +89,20 @@ nav a:hover {
     color: #eee;
 }
 
+/* 마크다운 본문 내 링크 */
+#markdown-viewer a {
+    color: #4ea8de;
+    text-decoration: underline;
+}
+
+#markdown-viewer a:visited {
+    color: #4ea8de;
+}
+
+#markdown-viewer a:hover {
+    color: #82c8f0;
+}
+
 /* 현재 선택된 메뉴 강조 */
 nav li.active a {
     color: #007bff;
