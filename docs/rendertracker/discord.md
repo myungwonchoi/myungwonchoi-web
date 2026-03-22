@@ -49,7 +49,7 @@ PC에 디스코드가 설치되어 있어야 합니다.
 *   **[테스트 메시지]** 버튼을 클릭하여 디스코드가 올바르게 연결됐는지 확인할 수 있습니다.  
 ![discord-testmessage-button | w-600](res/rendertracker/discord-testmessage-button.webp)  
 ![discord-testmessage | w-400](res/rendertracker/discord-testmessage.webp)  
-알림이 오지 않으면 Webhook URL이 올바른지 확인하거나, 앱 상단의 **디스코드 아이콘**이 활성화(컬러) 상태인지 확인하세요.
+알림이 오지 않으면 Webhook URL이 올바른지 확인하거나, 앱 상단의 **[디스코드 아이콘]**이 활성화(컬러) 상태인지 확인하세요.
 
 ---
 

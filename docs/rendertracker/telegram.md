@@ -49,7 +49,7 @@ PC에 텔레그램이 설치되어 있어야 합니다.
 
 <br>
 
-6. **`token`** 을 클릭하여 복사합니다.  
+6. **`Use this token to access the HTTP API:`** 하단의 **`token`** 을 클릭하여 복사합니다.  
 상단 봇 채팅방 주소를 클릭하여 봇 채팅방으로 이동합니다.  
 ![botfather-newbot-token | w-600](res/rendertracker/telegram-botfather-link-token.webp)
 
@@ -62,12 +62,12 @@ PC에 텔레그램이 설치되어 있어야 합니다.
 
 ## 3. RenderTracker에서 텔레그램 봇 토큰 및 Chat ID 적용
 
-1.  앱 우측 상단의 **텔레그램 아이콘**을 활성화합니다.  
+1.  앱 우측 상단의 **[텔레그램 아이콘]**을 활성화합니다.  
 ![telegram-activate-button | w-300](res/rendertracker/telegram-activate-button.webp)
 
 <br>
 
-2.  앱 우측 상단의 **톱니바퀴 아이콘**을 클릭합니다.  
+2.  앱 우측 상단의 **[톱니바퀴 아이콘]**을 클릭합니다.  
 ![click-settings-button | w-300](res/rendertracker/click-settings-button.webp)
 
 <br>
@@ -83,11 +83,11 @@ PC에 텔레그램이 설치되어 있어야 합니다.
 *   **[테스트 메시지]** 버튼을 클릭하여 텔레그램에 올바르게 연결됐는지 확인할 수 있습니다.  
 ![telegram-testmessage-button | w-600](res/rendertracker/telegram-testmessage-button.webp)  
 ![telegram-testmessage | w-400](res/rendertracker/telegram-testmessage.webp)  
-알림이 오지 않으면 **Bot Token**과 **Chat ID**가 올바른지 확인하거나, 앱 우측 상단의 **텔레그램 아이콘**이 활성화(컬러) 상태인지 확인하세요.
+알림이 오지 않으면 **[Bot Token]** 과 **[Chat ID]** 가 올바른지 확인하거나, 앱 우측 상단의 **[텔레그램 아이콘]** 이 활성화(컬러) 상태인지 확인하세요.
 
 ---
 
 ## ⚠️ 주의사항
-*   **Bot Token**과 **Chat ID**는 유출되면 누구나 메시지를 보낼 수 있으니 타인에게 노출되지 않도록 주의하세요.
+*   **[Bot Token]** 과 **[Chat ID]** 는 유출되면 누구나 메시지를 보낼 수 있으니 타인에게 노출되지 않도록 주의하세요.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
