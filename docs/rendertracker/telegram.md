@@ -62,12 +62,12 @@ PC에 텔레그램이 설치되어 있어야 합니다.
 
 ## 3. RenderTracker에서 텔레그램 봇 토큰 및 Chat ID 적용
 
-1.  앱 우측 상단의 **[텔레그램 아이콘]**을 활성화합니다.  
+1.  앱 우측 상단의 **[텔레그램 아이콘]** 을 활성화합니다.  
 ![telegram-activate-button | w-300](res/rendertracker/telegram-activate-button.webp)
 
 <br>
 
-2.  앱 우측 상단의 **[톱니바퀴 아이콘]**을 클릭합니다.  
+2.  앱 우측 상단의 **[톱니바퀴 아이콘]** 을 클릭합니다.  
 ![click-settings-button | w-300](res/rendertracker/click-settings-button.webp)
 
 <br>
