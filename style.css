@@ -28,7 +28,37 @@ body {
     position: sticky;
     top: 0;
     height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar-content {
     overflow-y: auto;
+}
+
+.sidebar-footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+}
+
+.sidebar-footer a {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.sidebar-footer a:hover {
+    color: #eee;
+}
+
+.sidebar-footer a.active {
+    color: #007bff;
+    font-weight: bold;
 }
 
 /* 본문 콘텐츠 영역 */

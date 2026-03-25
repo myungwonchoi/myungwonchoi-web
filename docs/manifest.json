@@ -1,4 +1,10 @@
 {
+    "common": [
+        {
+            "label": "Support",
+            "file": "support.md"
+        }
+    ],
     "plugins": [
         {
             "id": "mwcharacterpicker",
