@@ -1,4 +1,6 @@
-# Introduction to RenderTracker
+# About RenderTracker
+
+![RenderTracker | w-200](res/rendertracker/rendertracker-512x512-sharp.png)
 
 > [RenderTracker](https://ddingone.gumroad.com/l/RenderTracker) monitors the rendering progress of 3D software (Cinema 4D, Blender) in real time and sends notifications via messenger (Discord, Telegram).
 >

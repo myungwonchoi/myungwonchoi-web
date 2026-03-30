@@ -1,5 +1,7 @@
 # RenderTracker 소개
 
+![RenderTracker | w-200](res/rendertracker/rendertracker-512x512-sharp.png)
+
 > [RenderTracker](https://ddingone.gumroad.com/l/RenderTracker)는 3D 소프트웨어(Cinema 4D, Blender)의 렌더링 진행 상황을 실시간으로 모니터링하고,
 > 메신저(디스코드, 텔레그램)로 알림을 전송하는 프로그램입니다.  
 >

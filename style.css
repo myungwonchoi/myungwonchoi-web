@@ -5,28 +5,28 @@
 
 :root {
     /* Color tokens (Pico v2 dark theme) */
-    --bg:           #13161f;
-    --bg-surface:   #181c25;
-    --bg-elevated:  #1c2133;
-    --border:       #2a3140;
+    --bg: #13161f;
+    --bg-surface: #181c25;
+    --bg-elevated: #1c2133;
+    --border: #2a3140;
     --border-light: #222839;
 
-    --text-primary:   #c2c7d0;
+    --text-primary: #c2c7d0;
     --text-secondary: #8891a4;
-    --text-muted:     #525f7a;
-    --text-heading:   #dfe3eb;
+    --text-muted: #525f7a;
+    --text-heading: #dfe3eb;
 
-    --accent:         #01aaff;
-    --accent-hover:   #33bbff;
-    --accent-muted:   rgba(1, 170, 255, 0.12);
+    --accent: #01aaff;
+    --accent-hover: #33bbff;
+    --accent-muted: rgba(1, 170, 255, 0.12);
 
     /* Typography (Pico v2) */
     --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
     --font-size-base: 1rem;
-    --font-size-sm:   0.875rem;
-    --font-size-xs:   0.8125rem;
-    --line-height:    1.6;
+    --font-size-sm: 0.875rem;
+    --font-size-xs: 0.8125rem;
+    --line-height: 1.6;
 
     /* Spacing (Pico v2 — reduced for sleeker look) */
     --space-1: 0.25rem;
@@ -38,10 +38,10 @@
     --space-10: 2.5rem;
 
     /* Shape */
-    --radius-sm:  0.25rem;
-    --radius-md:  0.5rem;
-    --radius-lg:  0.75rem;
-    --radius-xl:  1rem;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
 
     /* Sidebar */
     --sidebar-width: 280px;
@@ -54,7 +54,9 @@
 /*  1. Reset & Base                                                           */
 /* -------------------------------------------------------------------------- */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -63,11 +65,35 @@ html {
     font-size: 100%;
 }
 
-@media (min-width: 576px)  { html { font-size: 106.25%; } }
-@media (min-width: 768px)  { html { font-size: 112.5%;  } }
-@media (min-width: 1024px) { html { font-size: 118.75%; } }
-@media (min-width: 1280px) { html { font-size: 125%;    } }
-@media (min-width: 1536px) { html { font-size: 131.25%; } }
+@media (min-width: 576px) {
+    html {
+        font-size: 106.25%;
+    }
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 112.5%;
+    }
+}
+
+@media (min-width: 1024px) {
+    html {
+        font-size: 118.75%;
+    }
+}
+
+@media (min-width: 1280px) {
+    html {
+        font-size: 125%;
+    }
+}
+
+@media (min-width: 1536px) {
+    html {
+        font-size: 131.25%;
+    }
+}
 
 body {
     margin: 0;
@@ -396,12 +422,30 @@ nav li.active a {
     margin-bottom: var(--space-3);
 }
 
-#markdown-viewer h1 { font-size: 2rem;    margin-top: 0; }
-#markdown-viewer h2 { font-size: 1.75rem; }
-#markdown-viewer h3 { font-size: 1.5rem; }
-#markdown-viewer h4 { font-size: 1.25rem; }
-#markdown-viewer h5 { font-size: 1.125rem; }
-#markdown-viewer h6 { font-size: 1rem; }
+#markdown-viewer h1 {
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+#markdown-viewer h2 {
+    font-size: 1.75rem;
+}
+
+#markdown-viewer h3 {
+    font-size: 1.5rem;
+}
+
+#markdown-viewer h4 {
+    font-size: 1.25rem;
+}
+
+#markdown-viewer h5 {
+    font-size: 1.125rem;
+}
+
+#markdown-viewer h6 {
+    font-size: 1rem;
+}
 
 #markdown-viewer p {
     margin-top: 0;
@@ -515,15 +559,41 @@ hr {
     display: inline-block;
 }
 
-#markdown-viewer img[alt*="w-200"]  { width: 200px; }
-#markdown-viewer img[alt*="w-300"]  { width: 300px; }
-#markdown-viewer img[alt*="w-400"]  { width: 400px; }
-#markdown-viewer img[alt*="w-500"]  { width: 500px; }
-#markdown-viewer img[alt*="w-600"]  { width: 600px; }
-#markdown-viewer img[alt*="w-800"]  { width: 800px; }
-#markdown-viewer img[alt*="w-1000"] { width: 1000px; }
-#markdown-viewer img[alt*="w-1200"] { width: 1200px; }
-#markdown-viewer img[alt*="w-full"] { width: 100%; }
+#markdown-viewer img[alt*="w-200"] {
+    width: 200px;
+}
+
+#markdown-viewer img[alt*="w-300"] {
+    width: 300px;
+}
+
+#markdown-viewer img[alt*="w-400"] {
+    width: 400px;
+}
+
+#markdown-viewer img[alt*="w-500"] {
+    width: 500px;
+}
+
+#markdown-viewer img[alt*="w-600"] {
+    width: 600px;
+}
+
+#markdown-viewer img[alt*="w-800"] {
+    width: 800px;
+}
+
+#markdown-viewer img[alt*="w-1000"] {
+    width: 1000px;
+}
+
+#markdown-viewer img[alt*="w-1200"] {
+    width: 1200px;
+}
+
+#markdown-viewer img[alt*="w-full"] {
+    width: 100%;
+}
 
 #markdown-viewer img[alt*="w-icon"] {
     width: 48px;
@@ -531,7 +601,7 @@ hr {
     border: none;
     border-radius: 0;
     margin: 0;
-    vertical-align: -22%;
+    vertical-align: -16%;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -650,7 +720,9 @@ hr {
 
 #qr-popup-img {
     display: block;
-    max-width: 260px;
+    max-width: min(520px, 90vw);
+    width: auto;
+    height: auto;
     border-radius: var(--radius-md);
     border: none;
     margin: 0;

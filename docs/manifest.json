@@ -50,8 +50,8 @@
                     "path": "plugins/rendertracker/en",
                     "docs": [
                         {
-                            "label": "Introduction to RenderTracker",
-                            "file": "rendertracker-intro.md"
+                            "label": "About RenderTracker",
+                            "file": "about.md"
                         },
                         {
                             "label": "Discord Webhook",
