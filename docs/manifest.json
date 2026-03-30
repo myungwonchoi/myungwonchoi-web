@@ -4,6 +4,16 @@
         "ko"
     ],
     "defaultLang": "ko",
+    "about": {
+        "ko": {
+            "label": "About",
+            "file": "about/ko/about.md"
+        },
+        "en": {
+            "label": "About",
+            "file": "about/en/about.md"
+        }
+    },
     "common": {
         "ko": {
             "label": "후원하기",
@@ -20,7 +30,7 @@
             "name": "RenderTracker",
             "langs": {
                 "ko": {
-                    "path": "rendertracker/ko",
+                    "path": "plugins/rendertracker/ko",
                     "docs": [
                         {
                             "label": "RenderTracker 소개",
@@ -37,7 +47,7 @@
                     ]
                 },
                 "en": {
-                    "path": "rendertracker/en",
+                    "path": "plugins/rendertracker/en",
                     "docs": [
                         {
                             "label": "Introduction to RenderTracker",
@@ -60,7 +70,7 @@
             "name": "MW Character Picker",
             "langs": {
                 "ko": {
-                    "path": "mwcharacterpicker/ko",
+                    "path": "plugins/mwcharacterpicker/ko",
                     "docs": [
                         {
                             "label": "소개",
@@ -69,7 +79,7 @@
                     ]
                 },
                 "en": {
-                    "path": "mwcharacterpicker/en",
+                    "path": "plugins/mwcharacterpicker/en",
                     "docs": [
                         {
                             "label": "Intro",
@@ -84,7 +94,7 @@
             "name": "RS Node Tools",
             "langs": {
                 "ko": {
-                    "path": "rsnodetools/ko",
+                    "path": "plugins/rsnodetools/ko",
                     "docs": [
                         {
                             "label": "소개",
@@ -93,7 +103,7 @@
                     ]
                 },
                 "en": {
-                    "path": "rsnodetools/en",
+                    "path": "plugins/rsnodetools/en",
                     "docs": [
                         {
                             "label": "Intro",

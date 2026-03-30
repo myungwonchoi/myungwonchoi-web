@@ -5,6 +5,6 @@
 
 <a href="https://www.paypal.com/paypalme/myungwonchoi" target="_blank"><button>PayPal</button></a>
 <a href="https://ddingone.gumroad.com/" target="_blank"><button>Gumroad</button></a>
-<button onclick="showQRPopup('res/support/kakaopay_qrcode.png')">카카오페이</button>
-<button onclick="showQRPopup('res/support/toss-qrcode.jpg')">토스뱅크</button>
+<button onclick="showQRPopup('res/support/kakaopay-qrcode.webp')">카카오페이</button>
+<button onclick="showQRPopup('res/support/toss-qrcode.webp')">토스뱅크</button>
 
