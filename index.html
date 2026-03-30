@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -12,34 +12,51 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <span class="topbar-title">dding_one</span>
+            <div class="lang-toggle" id="lang-toggle" role="group" aria-label="Language selector">
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn active" data-lang="ko">KO</button>
+            </div>
+        </div>
+    </header>
+
     <div class="container">
         <aside class="sidebar">
             <div class="sidebar-content">
-                <!-- 플러그인 선택 메뉴 (JSON에서 동적 로드) -->
                 <div class="plugin-selector">
-                    <select id="plugin-select">
-                        <!-- 스크립트에서 자동 생성됨 -->
-                    </select>
+                    <div class="plugin-dropdown" id="plugin-dropdown">
+                        <button class="plugin-dropdown-btn" id="plugin-dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
+                            <span id="plugin-dropdown-label"><!-- populated by script.js --></span>
+                            <svg class="plugin-dropdown-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <ul class="plugin-dropdown-menu" id="plugin-dropdown-menu" role="listbox">
+                            <!-- populated by script.js -->
+                        </ul>
+                    </div>
                 </div>
-                <nav>
+                <nav aria-label="Document navigation">
                     <ul id="menu-list">
-                        <!-- 스크립트에서 동적으로 생성됨 -->
+                        <!-- populated by script.js -->
                     </ul>
                 </nav>
             </div>
             <div class="sidebar-footer" id="common-list">
-                <!-- 스크립트에서 동적으로 생성됨 -->
+                <!-- populated by script.js -->
             </div>
         </aside>
 
         <main class="content">
-            <div id="markdown-viewer">주제를 선택해 주세요.</div>
+            <div id="markdown-viewer" role="main">Select a topic to get started.</div>
         </main>
     </div>
 
-    <div id="qr-popup" style="display:none">
+    <div id="qr-popup" style="display:none" role="dialog" aria-modal="true" aria-label="QR Code">
         <div id="qr-popup-box">
-            <button id="qr-popup-close" onclick="closeQRPopup()">✕</button>
+            <button id="qr-popup-close" onclick="closeQRPopup()" aria-label="Close">✕</button>
             <img id="qr-popup-img" src="" alt="QR Code">
         </div>
     </div>

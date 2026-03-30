@@ -1,56 +1,107 @@
 {
-    "common": [
-        {
-            "label": "Support",
-            "file": "support.md"
-        }
+    "langs": [
+        "en",
+        "ko"
     ],
+    "defaultLang": "ko",
+    "common": {
+        "ko": {
+            "label": "후원하기",
+            "file": "support/ko/support.md"
+        },
+        "en": {
+            "label": "Support",
+            "file": "support/en/support.md"
+        }
+    },
     "plugins": [
         {
             "id": "rendertracker",
             "name": "RenderTracker",
-            "docs": [
-                {
-                    "label": "Intro",
-                    "file": "intro.md"
+            "langs": {
+                "ko": {
+                    "path": "rendertracker/ko",
+                    "docs": [
+                        {
+                            "label": "RenderTracker 소개",
+                            "file": "rendertracker-intro.md"
+                        },
+                        {
+                            "label": "디스코드 Webhook",
+                            "file": "discord.md"
+                        },
+                        {
+                            "label": "텔레그램 Bot",
+                            "file": "telegram.md"
+                        }
+                    ]
                 },
-                {
-                    "label": "Install & Run",
-                    "file": "install-run.md"
-                },
-                {
-                    "label": "App Guide",
-                    "file": "app-guide.md"
-                },
-                {
-                    "label": "Discord Webhook",
-                    "file": "discord.md"
-                },
-                {
-                    "label": "Telegram Bot",
-                    "file": "telegram.md"
+                "en": {
+                    "path": "rendertracker/en",
+                    "docs": [
+                        {
+                            "label": "Introduction to RenderTracker",
+                            "file": "rendertracker-intro.md"
+                        },
+                        {
+                            "label": "Discord Webhook",
+                            "file": "discord.md"
+                        },
+                        {
+                            "label": "Telegram Bot",
+                            "file": "telegram.md"
+                        }
+                    ]
                 }
-            ]
+            }
         },
         {
             "id": "mwcharacterpicker",
             "name": "MW Character Picker",
-            "docs": [
-                {
-                    "label": "Intro",
-                    "file": "intro.md"
+            "langs": {
+                "ko": {
+                    "path": "mwcharacterpicker/ko",
+                    "docs": [
+                        {
+                            "label": "소개",
+                            "file": "intro.md"
+                        }
+                    ]
+                },
+                "en": {
+                    "path": "mwcharacterpicker/en",
+                    "docs": [
+                        {
+                            "label": "Intro",
+                            "file": "intro.md"
+                        }
+                    ]
                 }
-            ]
+            }
         },
         {
             "id": "rsnodetools",
             "name": "RS Node Tools",
-            "docs": [
-                {
-                    "label": "Intro",
-                    "file": "intro.md"
+            "langs": {
+                "ko": {
+                    "path": "rsnodetools/ko",
+                    "docs": [
+                        {
+                            "label": "소개",
+                            "file": "intro.md"
+                        }
+                    ]
+                },
+                "en": {
+                    "path": "rsnodetools/en",
+                    "docs": [
+                        {
+                            "label": "Intro",
+                            "file": "intro.md"
+                        }
+                    ]
                 }
-            ]
+            }
         }
     ]
 }
