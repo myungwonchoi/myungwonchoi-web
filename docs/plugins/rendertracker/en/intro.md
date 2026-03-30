@@ -7,7 +7,8 @@
 > Supports `Blender 4.0` or later and `Cinema 4D R2023` or later.
 
 ---
-![guide-mainui | w-800](res/rendertracker/guide-mainui.webp)
+![guide-mainui | w-800](res/rendertracker/guide-mainui.webp)  
+*RenderTracker UI*
 #### Left Panel
 Displays a history of rendered files.
 Click an item to view the render history entries.

@@ -34,7 +34,7 @@
                     "docs": [
                         {
                             "label": "RenderTracker 소개",
-                            "file": "rendertracker-intro.md"
+                            "file": "intro.md"
                         },
                         {
                             "label": "디스코드 Webhook",
@@ -50,8 +50,8 @@
                     "path": "plugins/rendertracker/en",
                     "docs": [
                         {
-                            "label": "About RenderTracker",
-                            "file": "about.md"
+                            "label": "Introduction to RenderTracker",
+                            "file": "intro.md"
                         },
                         {
                             "label": "Discord Webhook",

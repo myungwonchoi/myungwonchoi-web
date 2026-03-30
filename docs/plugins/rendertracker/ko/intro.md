@@ -8,7 +8,8 @@
 > `Blender 4.0` 이상, `Cinema 4D R2023` 이상을 지원합니다.
 
 ---
-![guide-mainui | w-800](res/rendertracker/guide-mainui.webp)
+![guide-mainui | w-800](res/rendertracker/guide-mainui.webp)  
+*RenderTracker UI*
 #### 왼쪽 패널  
 렌더링한 파일들의 기록이 표시됩니다.
 항목을 클릭하면 렌더링 기록들을 확인할 수 있습니다.

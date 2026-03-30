@@ -449,7 +449,7 @@ nav li.active a {
 
 #markdown-viewer p {
     margin-top: 0;
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
     color: var(--text-primary);
 }
 
@@ -458,6 +458,8 @@ nav li.active a {
     font-size: var(--font-size-xs);
     color: var(--text-muted);
     font-style: normal;
+    margin-left: var(--space-3);
+    display: inline-block;
 }
 
 /* Links */
@@ -555,7 +557,7 @@ hr {
     max-width: 100%;
     border-radius: var(--radius-md);
     border: 1px solid var(--border);
-    margin: var(--space-2) var(--space-2);
+    margin: var(--space-2) var(--space-2) 0 var(--space-2);
     display: inline-block;
 }
 
