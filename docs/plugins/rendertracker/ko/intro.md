@@ -28,17 +28,23 @@
 
 ## 알림
 
-렌더링 상태가 업데이트될 때 화면 우측 하단에 알림이 표시됩니다.
+렌더링 상태가 업데이트될 때 화면 우측 하단에 알림이 표시됩니다.  
+**3D 소프트웨어가 응답 없음이거나 종료돼도 여전히 감지합니다.**    
+<div class="warning-box">컴퓨터가 멈추거나 종료되면 감지할 수 없습니다.</div>  
+
+디스코드, 텔레그램의 메시지가 업데이트가 되지 않는다면 렌더링이 멈춘 것으로 간접적으로 확인할 수 있습니다.
+
+<br>
 
 <table><tr>
-<td>
+<td width="50%">
 
 **렌더링 시작**  
 렌더링이 시작되면 알립니다.
 ![guide-popup-start | w-400](res/rendertracker/guide-popup-start.webp)
 
 </td>
-<td>
+<td width="50%">
 
 **렌더링 완료**  
 렌더링이 완료되면 알립니다.
@@ -48,24 +54,26 @@
 </tr><tr>
 <td>
 
-**렌더링 중지**
-렌더링이 중간에 중지되면 중지 시점의 정보를 알립니다.
+**렌더링 중지**  
+렌더링이 중간에 중지되면 중지 시점의 정보를 알립니다.  
 
-![guide-popup-stop](res/rendertracker/guide-popup-stop.webp)
+![guide-popup-stop | w-400](res/rendertracker/guide-popup-stop.webp)
 
-*3D프로그램이 응답없음이거나 종료돼도 여전히 감지합니다.*
+*3D 소프트웨어가 응답 없음이거나 종료돼도 여전히 감지합니다.*
 
 </td>
 <td>
 
-**프레임 지연**
-특정 프레임이 설정된 시간 이상 소요될 경우 알립니다.
+**프레임 지연**  
+특정 프레임이 설정된 시간 이상 소요될 경우 알립니다.  
 
-![guide-popup-delay](res/rendertracker/guide-popup-delay.webp)
+![guide-popup-delay | w-400](res/rendertracker/guide-popup-delay.webp)
 
-*3D프로그램이 응답없음이거나 종료돼도 여전히 감지합니다.*
+*3D 소프트웨어가 응답 없음이거나 종료돼도 여전히 감지합니다.*
 
 </td>
 </tr></table>
+
+
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

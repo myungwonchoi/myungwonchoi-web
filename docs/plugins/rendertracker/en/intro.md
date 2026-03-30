@@ -27,7 +27,9 @@ From left to right: messenger notifications, app volume, app-wide notifications,
 
 ## Notifications
 
-A notification appears in the bottom-right corner of the screen whenever the rendering status is updated.
+A notification appears in the bottom-right corner of the screen whenever the rendering status is updated.  
+Still detects even if the 3D software is unresponsive or closed.  
+<div class="warning-box">Cannot detect if the computer freezes or shuts down.</div>
 
 <table><tr>
 <td>
@@ -35,7 +37,7 @@ A notification appears in the bottom-right corner of the screen whenever the ren
 **Render Started**  
 Notifies when rendering begins.
 
-![guide-popup-start](res/rendertracker/guide-popup-start.webp)
+![guide-popup-start | w-400](res/rendertracker/guide-popup-start.webp)
 
 </td>
 <td>
@@ -43,7 +45,7 @@ Notifies when rendering begins.
 **Render Finished**  
 Notifies when rendering is complete.
 
-![guide-popup-finish](res/rendertracker/guide-popup-finish.webp)
+![guide-popup-finish | w-400](res/rendertracker/guide-popup-finish.webp)
 
 </td>
 </tr><tr>
@@ -52,7 +54,7 @@ Notifies when rendering is complete.
 **Render Stopped**  
 Notifies when rendering is interrupted, including info at the point of stop.
 
-![guide-popup-stop](res/rendertracker/guide-popup-stop.webp)
+![guide-popup-stop | w-400](res/rendertracker/guide-popup-stop.webp)
 
 *Still detects even if the 3D software is unresponsive or closed.*
 
@@ -62,7 +64,7 @@ Notifies when rendering is interrupted, including info at the point of stop.
 **Frame Delay**  
 Notifies when a specific frame takes longer than the configured time.
 
-![guide-popup-delay](res/rendertracker/guide-popup-delay.webp)
+![guide-popup-delay | w-400](res/rendertracker/guide-popup-delay.webp)
 
 *Still detects even if the 3D software is unresponsive or closed.*
 

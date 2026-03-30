@@ -1,6 +1,7 @@
 const $ = (id) => document.getElementById(id);
 let manifest = {};
 let currentLang = 'ko';
+let skipScroll = false;
 
 // ---------- Language ----------
 
@@ -25,14 +26,16 @@ function setLang(lang) {
     }
 
     // update Support nav link href
-    if (manifest.common) {
-        const supportEntry = manifest.common[currentLang] || manifest.common[manifest.defaultLang];
+    if (manifest.support) {
+        const supportEntry = manifest.support[currentLang] || manifest.support[manifest.defaultLang];
         const supportLink = $('nav-support');
-        if (supportLink) supportLink.href = `#/common/${supportEntry.file.split('/').pop()}`;
+        if (supportLink) supportLink.href = `#/support/${supportEntry.file.split('/').pop()}`;
     }
 
+    skipScroll = true;
+
     // re-route: keep current plugin & file, only switch language
-    const [_, pid, currentFile] = location.hash.split('/');
+    const [_, pid, file, extra] = location.hash.split('/');
 
     // About page: switch to the same page in the new language
     if (pid === 'about' && manifest.about) {
@@ -46,10 +49,10 @@ function setLang(lang) {
         return;
     }
 
-    // Support (common) page: switch to the same page in the new language
-    if (pid === 'common' && manifest.common) {
-        const entry = manifest.common[currentLang] || manifest.common[manifest.defaultLang];
-        const newHash = `#/common/${entry.file.split('/').pop()}`;
+    // Support page: switch to the same page in the new language
+    if (pid === 'support' && manifest.support) {
+        const entry = manifest.support[currentLang] || manifest.support[manifest.defaultLang];
+        const newHash = `#/support/${entry.file.split('/').pop()}`;
         if (location.hash === newHash) {
             route();
         } else {
@@ -58,32 +61,43 @@ function setLang(lang) {
         return;
     }
 
-    const plugin = manifest.plugins.find(p => p.id === pid) || manifest.plugins[0];
-    const langData = plugin.langs[currentLang] || plugin.langs[manifest.defaultLang];
-    const sameFile = langData.docs.find(d => d.file === currentFile);
-    const targetFile = sameFile ? currentFile : langData.docs[0].file;
-    const newHash = `#/${plugin.id}/${targetFile}`;
-    if (location.hash === newHash) {
-        route();
-    } else {
-        location.hash = newHash;
+    // Plugins page: switch language
+    if (pid === 'plugins' && file) {
+        const pluginId = file;
+        const currentDocFile = extra;
+        const plugin = manifest.plugins.find(p => p.id === pluginId) || manifest.plugins[0];
+        const langData = plugin.langs[currentLang] || plugin.langs[manifest.defaultLang];
+        const sameFile = langData.docs.find(d => d.file === currentDocFile);
+        const targetFile = sameFile ? currentDocFile : langData.docs[0].file;
+        const newHash = `#/plugins/${plugin.id}/${targetFile}`;
+        if (location.hash === newHash) {
+            route();
+        } else {
+            location.hash = newHash;
+        }
+        return;
     }
+
+    // Fallback or early redirection
+    const p = manifest.plugins[0];
+    const ld = p.langs[currentLang] || p.langs[manifest.defaultLang];
+    location.hash = `#/plugins/${p.id}/${ld.docs[0].file}`;
 }
 
 function rebuildPluginSelector() {
     const currentPid = location.hash.split('/')[1] || manifest.plugins[0].id;
-    
+
     $('plugin-dropdown-menu').innerHTML = manifest.plugins.map(p =>
         `<li class="${p.id === currentPid ? 'active' : ''}">
             <button data-pid="${p.id}">${p.name}</button>
         </li>`
     ).join('');
-    
+
     if (currentPid === 'about' && manifest.about) {
         const entry = manifest.about[currentLang] || manifest.about[manifest.defaultLang];
         $('plugin-dropdown-label').textContent = entry.label;
-    } else if (currentPid === 'common' && manifest.common) {
-        const entry = manifest.common[currentLang] || manifest.common[manifest.defaultLang];
+    } else if (currentPid === 'support' && manifest.support) {
+        const entry = manifest.support[currentLang] || manifest.support[manifest.defaultLang];
         $('plugin-dropdown-label').textContent = entry.label;
     } else {
         const active = manifest.plugins.find(p => p.id === currentPid) || manifest.plugins[0];
@@ -94,7 +108,7 @@ function rebuildPluginSelector() {
         btn.addEventListener('click', () => {
             const p = manifest.plugins.find(p => p.id === btn.dataset.pid);
             const langData = p.langs[currentLang] || p.langs[manifest.defaultLang];
-            location.hash = `#/${p.id}/${langData.docs[0].file}`;
+            location.hash = `#/plugins/${p.id}/${langData.docs[0].file}`;
             closePluginDropdown();
         });
     });
@@ -120,7 +134,7 @@ function updateTopbarNav(pid) {
     document.querySelectorAll('.topbar-nav-link').forEach(link => link.classList.remove('active'));
     if (pid === 'about') {
         $('nav-about')?.classList.add('active');
-    } else if (pid === 'common') {
+    } else if (pid === 'support') {
         $('nav-support')?.classList.add('active');
     } else {
         $('nav-plugins')?.classList.add('active');
@@ -137,7 +151,10 @@ marked.use({ renderer });
 // ---------- Routing ----------
 
 async function route() {
-    const [_, pid, file] = location.hash.split('/');
+    let currentSkipScroll = skipScroll;
+    skipScroll = false;
+
+    const [_, pid, file, extra] = location.hash.split('/');
 
     updateTopbarNav(pid);
 
@@ -148,42 +165,44 @@ async function route() {
     if (isAbout) {
         const pluginSelector = document.querySelector('.plugin-selector');
         if (pluginSelector) pluginSelector.style.display = 'none';
-        
+
         $('plugin-dropdown-label').textContent = aboutEntry.label;
         $('menu-list').innerHTML = `<li class="active"><a href="#/about/${aboutEntry.file.split('/').pop()}">${aboutEntry.label}</a></li>`;
         const res = await fetch(`docs/${aboutEntry.file}`);
         $('markdown-viewer').innerHTML = res.ok ? marked.parse(await res.text()) : 'File not found.';
-        window.scrollTo(0, 0);
+        if (!currentSkipScroll) window.scrollTo(0, 0);
         return;
     }
 
-    // Common (Support) page
-    const commonEntry = manifest.common && manifest.common[currentLang];
-    const isCommon = pid === 'common' && commonEntry;
+    // Support page
+    const supportEntry = manifest.support && manifest.support[currentLang];
+    const isSupport = pid === 'support' && supportEntry;
 
-    if (isCommon) {
+    if (isSupport) {
         const pluginSelector = document.querySelector('.plugin-selector');
         if (pluginSelector) pluginSelector.style.display = 'none';
-        
-        $('plugin-dropdown-label').textContent = commonEntry.label;
-        $('menu-list').innerHTML = `<li class="active"><a href="#/common/${file}">${commonEntry.label}</a></li>`;
-        const res = await fetch(`docs/${commonEntry.file}`);
+
+        $('plugin-dropdown-label').textContent = supportEntry.label;
+        $('menu-list').innerHTML = `<li class="active"><a href="#/support/${file}">${supportEntry.label}</a></li>`;
+        const res = await fetch(`docs/${supportEntry.file}`);
         $('markdown-viewer').innerHTML = res.ok ? marked.parse(await res.text()) : 'File not found.';
-        window.scrollTo(0, 0);
+        if (!currentSkipScroll) window.scrollTo(0, 0);
         return;
     }
 
     // Plugin page
+    if (pid !== 'plugins') return;
+
     const pluginSelector = document.querySelector('.plugin-selector');
     if (pluginSelector) pluginSelector.style.display = 'block';
-    
-    const plugin = manifest.plugins.find(p => p.id === pid) || manifest.plugins[0];
+
+    const plugin = manifest.plugins.find(p => p.id === file) || manifest.plugins[0];
     const langData = plugin.langs[currentLang] || plugin.langs[manifest.defaultLang];
-    const doc = langData.docs.find(d => d.file === file) || langData.docs[0];
+    const doc = langData.docs.find(d => d.file === extra) || langData.docs[0];
 
     // URL correction
-    if (location.hash !== `#/${plugin.id}/${doc.file}`) {
-        location.hash = `#/${plugin.id}/${doc.file}`;
+    if (location.hash !== `#/plugins/${plugin.id}/${doc.file}`) {
+        location.hash = `#/plugins/${plugin.id}/${doc.file}`;
         return;
     }
 
@@ -193,13 +212,13 @@ async function route() {
         li.classList.toggle('active', li.querySelector('button')?.dataset.pid === plugin.id);
     });
     $('menu-list').innerHTML = langData.docs.map(d =>
-        `<li class="${d.file === doc.file ? 'active' : ''}"><a href="#/${plugin.id}/${d.file}">${d.label}</a></li>`
+        `<li class="${d.file === doc.file ? 'active' : ''}"><a href="#/plugins/${plugin.id}/${d.file}">${d.label}</a></li>`
     ).join('');
 
     // Load document
     const res = await fetch(`docs/${langData.path}/${doc.file}`);
     $('markdown-viewer').innerHTML = res.ok ? marked.parse(await res.text()) : 'File not found.';
-    window.scrollTo(0, 0);
+    if (!currentSkipScroll) window.scrollTo(0, 0);
 }
 
 // ---------- Init ----------
@@ -237,10 +256,10 @@ async function init() {
         }
 
         // Update Support nav link href for current lang
-        if (manifest.common) {
-            const supportEntry = manifest.common[currentLang] || manifest.common[manifest.defaultLang];
+        if (manifest.support) {
+            const supportEntry = manifest.support[currentLang] || manifest.support[manifest.defaultLang];
             const supportLink = $('nav-support');
-            if (supportLink) supportLink.href = `#/common/${supportEntry.file.split('/').pop()}`;
+            if (supportLink) supportLink.href = `#/support/${supportEntry.file.split('/').pop()}`;
         }
 
         // Plugins nav link: go to first plugin
@@ -250,7 +269,7 @@ async function init() {
                 e.preventDefault();
                 const p = manifest.plugins[0];
                 const langData = p.langs[currentLang] || p.langs[manifest.defaultLang];
-                location.hash = `#/${p.id}/${langData.docs[0].file}`;
+                location.hash = `#/plugins/${p.id}/${langData.docs[0].file}`;
             });
         }
 

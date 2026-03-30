@@ -1,12 +1,12 @@
 {
-    "langs": [
-        "en",
-        "ko"
-    ],
     "defaultLang": "ko",
+    "langs": [
+        "ko",
+        "en"
+    ],
     "about": {
         "ko": {
-            "label": "About",
+            "label": "소개",
             "file": "about/ko/about.md"
         },
         "en": {
@@ -14,7 +14,7 @@
             "file": "about/en/about.md"
         }
     },
-    "common": {
+    "support": {
         "ko": {
             "label": "후원하기",
             "file": "support/ko/support.md"
@@ -37,11 +37,11 @@
                             "file": "intro.md"
                         },
                         {
-                            "label": "디스코드 Webhook",
+                            "label": "Discord",
                             "file": "discord.md"
                         },
                         {
-                            "label": "텔레그램 Bot",
+                            "label": "Telegram",
                             "file": "telegram.md"
                         }
                     ]
@@ -50,15 +50,15 @@
                     "path": "plugins/rendertracker/en",
                     "docs": [
                         {
-                            "label": "Introduction to RenderTracker",
+                            "label": "Introduction",
                             "file": "intro.md"
                         },
                         {
-                            "label": "Discord Webhook",
+                            "label": "Discord",
                             "file": "discord.md"
                         },
                         {
-                            "label": "Telegram Bot",
+                            "label": "Telegram",
                             "file": "telegram.md"
                         }
                     ]
@@ -82,7 +82,7 @@
                     "path": "plugins/mwcharacterpicker/en",
                     "docs": [
                         {
-                            "label": "Intro",
+                            "label": "Introduction",
                             "file": "intro.md"
                         }
                     ]
@@ -106,7 +106,7 @@
                     "path": "plugins/rsnodetools/en",
                     "docs": [
                         {
-                            "label": "Intro",
+                            "label": "Introduction",
                             "file": "intro.md"
                         }
                     ]

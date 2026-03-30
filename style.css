@@ -561,45 +561,53 @@ hr {
     display: inline-block;
 }
 
+#markdown-viewer img[alt*="w-100"] {
+    width: 100px !important;
+}
+
+#markdown-viewer img[alt*="w-150"] {
+    width: 150px !important;
+}
+
 #markdown-viewer img[alt*="w-200"] {
-    width: 200px;
+    width: 200px !important;
 }
 
 #markdown-viewer img[alt*="w-300"] {
-    width: 300px;
+    width: 300px !important;
 }
 
 #markdown-viewer img[alt*="w-400"] {
-    width: 400px;
+    width: 400px !important;
 }
 
 #markdown-viewer img[alt*="w-500"] {
-    width: 500px;
+    width: 500px !important;
 }
 
 #markdown-viewer img[alt*="w-600"] {
-    width: 600px;
+    width: 600px !important;
 }
 
 #markdown-viewer img[alt*="w-800"] {
-    width: 800px;
+    width: 800px !important;
 }
 
 #markdown-viewer img[alt*="w-1000"] {
-    width: 1000px;
+    width: 1000px !important;
 }
 
 #markdown-viewer img[alt*="w-1200"] {
-    width: 1200px;
+    width: 1200px !important;
 }
 
 #markdown-viewer img[alt*="w-full"] {
-    width: 100%;
+    width: 100% !important;
 }
 
 #markdown-viewer img[alt*="w-icon"] {
-    width: 48px;
-    height: 48px;
+    width: 48px !important;
+    height: 48px !important;
     border: none;
     border-radius: 0;
     margin: 0;
@@ -627,7 +635,8 @@ hr {
 }
 
 #markdown-viewer td img {
-    width: 100%;
+    max-width: 100%;
+    width: auto;
     height: auto;
     display: block;
 }
@@ -728,4 +737,21 @@ hr {
     border-radius: var(--radius-md);
     border: none;
     margin: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  13. Utilities                                                             */
+/* -------------------------------------------------------------------------- */
+
+.warning-box {
+    border: 1px solid #ff4d4f;
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+    color: #ff4d4f;
+    background: rgba(255, 77, 79, 0.1);
+    font-weight: 600;
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
+    display: inline-block;
+    font-size: var(--font-size-sm);
 }
