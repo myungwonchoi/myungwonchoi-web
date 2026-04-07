@@ -30,7 +30,7 @@ You must either create your own server or have server management permissions.
     *   **Channel**: The channel to receive notifications
 <br>
 
-![RenderTracker Profile Image | w-200](res/rendertracker/rendertracker-512x512-sharp.png)  
+![RenderTracker Profile Image | w-100](res/rendertracker/rendertracker-512x512-sharp.png)  
 *RenderTracker profile image*
 
 ---

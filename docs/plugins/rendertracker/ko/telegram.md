@@ -61,7 +61,7 @@
 
 <br>
 
-![RenderTracker 프로필 이미지 | w-200](res/rendertracker/rendertracker-512x512-sharp.png)  
+![RenderTracker 프로필 이미지 | w-100](res/rendertracker/rendertracker-512x512-sharp.png)  
 *RenderTracker 프로필 이미지*
 
 **`BotFather > Open > RenderTracker > Edit Info > Set New Photo`** 에서 봇 프로필 이미지를 변경할 수 있습니다.

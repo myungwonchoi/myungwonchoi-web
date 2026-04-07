@@ -62,7 +62,7 @@ Then click the bot chat room link at the top to open it.
 
 <br>
 
-![RenderTracker Profile Image | w-200](res/rendertracker/rendertracker-512x512-sharp.png)  
+![RenderTracker Profile Image | w-100](res/rendertracker/rendertracker-512x512-sharp.png)  
 *RenderTracker profile image*
 
 You can change the bot profile image at **`BotFather > Open > RenderTracker > Edit Info > Set New Photo`**.

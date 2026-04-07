@@ -29,7 +29,7 @@ RenderTracker 알림을 받을 디스코드 서버가 필요합니다. (DM으로
     *   **채널**: 알림을 보낼 채널
 <br>
 
-![RenderTracker 프로필 이미지 | w-200](res/rendertracker/rendertracker-512x512-sharp.png)  
+![RenderTracker 프로필 이미지 | w-100](res/rendertracker/rendertracker-512x512-sharp.png)  
 *RenderTracker 프로필 이미지*
 
 ---
