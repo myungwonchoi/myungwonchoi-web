@@ -5,23 +5,23 @@
         "ko"
     ],
     "about": {
-        "en": {
-            "label": "About",
-            "file": "about/en/about.md"
-        },
         "ko": {
             "label": "소개",
             "file": "about/ko/about.md"
+        },
+        "en": {
+            "label": "About me",
+            "file": "about/en/about.md"
         }
     },
     "support": {
+        "ko": {
+            "label": "후원하기",
+            "file": "support/ko/support.md"
+        },
         "en": {
             "label": "Support",
             "file": "support/en/support.md"
-        },
-        "ko": {
-            "label": "후원",
-            "file": "support/ko/support.md"
         }
     },
     "plugins": [
@@ -29,36 +29,36 @@
             "id": "rendertracker",
             "name": "RenderTracker",
             "langs": {
-                "en": {
-                    "path": "plugins/rendertracker/en",
-                    "docs": [
-                        {
-                            "label": "Discord",
-                            "file": "discord.md"
-                        },
-                        {
-                            "label": "Introduction",
-                            "file": "intro.md"
-                        },
-                        {
-                            "label": "Telegram",
-                            "file": "telegram.md"
-                        }
-                    ]
-                },
                 "ko": {
                     "path": "plugins/rendertracker/ko",
                     "docs": [
                         {
-                            "label": "Discord",
-                            "file": "discord.md"
-                        },
-                        {
-                            "label": "소개",
+                            "label": "RenderTracker 소개",
                             "file": "intro.md"
                         },
                         {
-                            "label": "Telegram",
+                            "label": "디스코드 Webhook",
+                            "file": "discord.md"
+                        },
+                        {
+                            "label": "텔레그램 Bot",
+                            "file": "telegram.md"
+                        }
+                    ]
+                },
+                "en": {
+                    "path": "plugins/rendertracker/en",
+                    "docs": [
+                        {
+                            "label": "About RenderTracker",
+                            "file": "intro.md"
+                        },
+                        {
+                            "label": "Discord Webhook",
+                            "file": "discord.md"
+                        },
+                        {
+                            "label": "Telegram Bot",
                             "file": "telegram.md"
                         }
                     ]
@@ -69,20 +69,20 @@
             "id": "mwcharacterpicker",
             "name": "MW Character Picker",
             "langs": {
-                "en": {
-                    "path": "plugins/mwcharacterpicker/en",
-                    "docs": [
-                        {
-                            "label": "Introduction",
-                            "file": "intro.md"
-                        }
-                    ]
-                },
                 "ko": {
                     "path": "plugins/mwcharacterpicker/ko",
                     "docs": [
                         {
                             "label": "소개",
+                            "file": "intro.md"
+                        }
+                    ]
+                },
+                "en": {
+                    "path": "plugins/mwcharacterpicker/en",
+                    "docs": [
+                        {
+                            "label": "Introduction",
                             "file": "intro.md"
                         }
                     ]
@@ -93,20 +93,20 @@
             "id": "rsnodetools",
             "name": "RS Node Tools",
             "langs": {
-                "en": {
-                    "path": "plugins/rsnodetools/en",
-                    "docs": [
-                        {
-                            "label": "Introduction",
-                            "file": "intro.md"
-                        }
-                    ]
-                },
                 "ko": {
                     "path": "plugins/rsnodetools/ko",
                     "docs": [
                         {
                             "label": "소개",
+                            "file": "intro.md"
+                        }
+                    ]
+                },
+                "en": {
+                    "path": "plugins/rsnodetools/en",
+                    "docs": [
+                        {
+                            "label": "Introduction",
                             "file": "intro.md"
                         }
                     ]

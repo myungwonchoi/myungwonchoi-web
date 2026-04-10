@@ -1,5 +1,3 @@
-# About
-
 <img src="res/about/profile.webp" style="width: 300px; float: left; margin: 0 40px 20px 0;">
 
 **Hi, I'm Myungwon Choi.**  
