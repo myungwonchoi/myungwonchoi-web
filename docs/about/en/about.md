@@ -1,10 +1,12 @@
+# About me
+
 <img src="res/about/profile.webp" style="width: 300px; float: left; margin: 0 40px 20px 0;">
 
-**Hi, I'm Myungwon Choi.**  
+### Hi, I'm Myungwon Choi.
 
 I started as a motion graphic designer and now work as a Technical Artist, focusing on the intersection of technology and art.
 
-I’m dedicated to streamlining workflows and enhancing visual implementation across various platforms. I also enjoy developing 3D tool plugins as a hobby, building custom solutions to bridge technical gaps in production.
+
 
 <div style="clear: both;"></div>
 

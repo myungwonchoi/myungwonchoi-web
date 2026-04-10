@@ -1,10 +1,7 @@
-# Support
+# Buy the developer a coffee
 
-> If my plugins have been helpful, please consider supporting my development!  
+> If my projects have been helpful, please consider supporting my development!  
 > Your support helps me build better features and maintain the project.  
-> Thank you!  
+> Thank you!
 
-<a href="https://www.paypal.com/paypalme/myungwonchoi" target="_blank"><button>PayPal</button></a>
-<button onclick="showQRPopup('res/support/kakaopay_qrcode.png')">Kakao Pay</button>
-<button onclick="showQRPopup('res/support/toss-qrcode.jpg')">Toss Bank</button>
-
+<iframe id='kofiframe' src='https://ko-fi.com/myungwonchoi/?hidefeed=true&widget=true&embed=true' height='650' title='myungwonchoi'></iframe>

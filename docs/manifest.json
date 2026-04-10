@@ -6,17 +6,17 @@
     ],
     "about": {
         "ko": {
-            "label": "소개",
+            "label": "About",
             "file": "about/ko/about.md"
         },
         "en": {
-            "label": "About me",
+            "label": "About",
             "file": "about/en/about.md"
         }
     },
     "support": {
         "ko": {
-            "label": "후원하기",
+            "label": "Support",
             "file": "support/ko/support.md"
         },
         "en": {

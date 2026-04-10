@@ -5,9 +5,8 @@
 > [RenderTracker](https://ddingone.gumroad.com/l/RenderTracker)는 3D 소프트웨어(Cinema 4D, Blender)의 렌더링 진행 상황을 실시간으로 모니터링하고,
 > 메신저(디스코드, 텔레그램)로 알림을 전송하는 프로그램입니다.  
 >
-> `Blender 4.2` 이상, `Cinema 4D 2023.2.2, 2024.5.1, 2025.3.0, 2026.1.4` 버전을 지원합니다.
-> 
-> *해당 Cinema 4D 세부 버전 이하에서는 작동하지 않을 확률이 높습니다.*
+> `Windows 11`, `Blender 4.2` 이상, `Cinema 4D 2023.2.2, 2024.5.1, 2025.3.0, 2026.1.4` 버전을 지원합니다.  
+> *Cinema 4D 세부 버전 이하에서는 작동하지 않을 수 있습니다.*
 
 ---
 ![guide-mainui | w-800](res/rendertracker/guide-mainui.webp)  

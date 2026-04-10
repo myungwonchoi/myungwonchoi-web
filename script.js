@@ -3,29 +3,74 @@ let manifest = {};
 let currentLang = 'en';
 let skipScroll = false;
 
+// Caches
+const docCache = new Map();     // Raw markdown text
+const htmlCache = new Map();    // Parsed HTML content
+
+// ---------- Pre-fetching ----------
+
+async function prefetchDocs() {
+    const paths = [];
+    
+    // Collect all paths from manifest
+    if (manifest.about) Object.values(manifest.about).forEach(e => paths.push(`docs/${e.file}`));
+    if (manifest.support) Object.values(manifest.support).forEach(e => paths.push(`docs/${e.file}`));
+    if (manifest.plugins) {
+        manifest.plugins.forEach(p => {
+            Object.values(p.langs).forEach(l => {
+                l.docs.forEach(d => paths.push(`docs/${l.path}/${d.file}`));
+            });
+        });
+    }
+
+    // Background fetch and preload images
+    paths.forEach(async path => {
+        if (docCache.has(path)) return;
+        try {
+            const res = await fetch(path);
+            if (res.ok) {
+                const text = await res.text();
+                docCache.set(path, text);
+                
+                // Pre-parse and preload images found in markdown
+                const html = marked.parse(text);
+                htmlCache.set(path, html);
+                
+                // Extract image sources and preload
+                const imgRegex = /<img [^>]*src="([^"]+)"/g;
+                let match;
+                while ((match = imgRegex.exec(html)) !== null) {
+                    const img = new Image();
+                    img.src = match[1];
+                }
+            }
+        } catch (e) {
+            console.warn(`Failed to prefetch: ${path}`, e);
+        }
+    });
+}
+
 // ---------- Language ----------
 
 function setLang(lang) {
+    if (currentLang === lang) return;
+    
     currentLang = lang;
     localStorage.setItem('lang', lang);
     document.documentElement.lang = lang;
 
-    // update toggle buttons
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
     });
 
-    // rebuild plugin selector for new lang
     rebuildPluginSelector();
 
-    // update About nav link href
     if (manifest.about) {
         const aboutEntry = manifest.about[currentLang] || manifest.about[manifest.defaultLang];
         const aboutLink = $('nav-about');
         if (aboutLink) aboutLink.href = `#/about/${aboutEntry.file.split('/').pop()}`;
     }
 
-    // update Support nav link href
     if (manifest.support) {
         const supportEntry = manifest.support[currentLang] || manifest.support[manifest.defaultLang];
         const supportLink = $('nav-support');
@@ -34,34 +79,8 @@ function setLang(lang) {
 
     skipScroll = true;
 
-    // re-route: keep current plugin & file, only switch language
     const [_, pid, file, extra] = location.hash.split('/');
 
-    // About page: switch to the same page in the new language
-    if (pid === 'about' && manifest.about) {
-        const entry = manifest.about[currentLang] || manifest.about[manifest.defaultLang];
-        const newHash = `#/about/${entry.file.split('/').pop()}`;
-        if (location.hash === newHash) {
-            route();
-        } else {
-            location.hash = newHash;
-        }
-        return;
-    }
-
-    // Support page: switch to the same page in the new language
-    if (pid === 'support' && manifest.support) {
-        const entry = manifest.support[currentLang] || manifest.support[manifest.defaultLang];
-        const newHash = `#/support/${entry.file.split('/').pop()}`;
-        if (location.hash === newHash) {
-            route();
-        } else {
-            location.hash = newHash;
-        }
-        return;
-    }
-
-    // Plugins page: switch language
     if (pid === 'plugins' && file) {
         const pluginId = file;
         const currentDocFile = extra;
@@ -70,27 +89,28 @@ function setLang(lang) {
         const sameFile = langData.docs.find(d => d.file === currentDocFile);
         const targetFile = sameFile ? currentDocFile : langData.docs[0].file;
         const newHash = `#/plugins/${plugin.id}/${targetFile}`;
-        if (location.hash === newHash) {
-            route();
-        } else {
-            location.hash = newHash;
-        }
+        if (location.hash === newHash) route(); else location.hash = newHash;
         return;
     }
 
-    // Fallback or early redirection
+    if (pid === 'about' || pid === 'support') {
+        const section = manifest[pid];
+        const entry = section[currentLang] || section[manifest.defaultLang];
+        const newHash = `#/${pid}/${entry.file.split('/').pop()}`;
+        if (location.hash === newHash) route(); else location.hash = newHash;
+        return;
+    }
+
+    // Default fallback
     if (manifest.about) {
         const entry = manifest.about[currentLang] || manifest.about[manifest.defaultLang];
         location.hash = `#/about/${entry.file.split('/').pop()}`;
-    } else {
-        const p = manifest.plugins[0];
-        const ld = p.langs[currentLang] || p.langs[manifest.defaultLang];
-        location.hash = `#/plugins/${p.id}/${ld.docs[0].file}`;
     }
 }
 
 function rebuildPluginSelector() {
-    const currentPid = location.hash.split('/')[1] || manifest.plugins[0].id;
+    const currentPid = location.hash.split('/')[1] || (manifest.plugins && manifest.plugins[0].id);
+    if (!currentPid) return;
 
     $('plugin-dropdown-menu').innerHTML = manifest.plugins.map(p =>
         `<li class="${p.id === currentPid ? 'active' : ''}">
@@ -98,11 +118,8 @@ function rebuildPluginSelector() {
         </li>`
     ).join('');
 
-    if (currentPid === 'about' && manifest.about) {
-        const entry = manifest.about[currentLang] || manifest.about[manifest.defaultLang];
-        $('plugin-dropdown-label').textContent = entry.label;
-    } else if (currentPid === 'support' && manifest.support) {
-        const entry = manifest.support[currentLang] || manifest.support[manifest.defaultLang];
+    if ((currentPid === 'about' || currentPid === 'support') && manifest[currentPid]) {
+        const entry = manifest[currentPid][currentLang] || manifest[currentPid][manifest.defaultLang];
         $('plugin-dropdown-label').textContent = entry.label;
     } else {
         const active = manifest.plugins.find(p => p.id === currentPid) || manifest.plugins[0];
@@ -110,40 +127,29 @@ function rebuildPluginSelector() {
     }
 
     $('plugin-dropdown-menu').querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.onclick = () => {
             const p = manifest.plugins.find(p => p.id === btn.dataset.pid);
             const langData = p.langs[currentLang] || p.langs[manifest.defaultLang];
             location.hash = `#/plugins/${p.id}/${langData.docs[0].file}`;
             closePluginDropdown();
-        });
+        };
     });
 }
 
 function openPluginDropdown() {
-    const btn = $('plugin-dropdown-btn');
-    const menu = $('plugin-dropdown-menu');
-    btn.setAttribute('aria-expanded', 'true');
-    menu.classList.add('open');
+    $('plugin-dropdown-btn').setAttribute('aria-expanded', 'true');
+    $('plugin-dropdown-menu').classList.add('open');
 }
 
 function closePluginDropdown() {
-    const btn = $('plugin-dropdown-btn');
-    const menu = $('plugin-dropdown-menu');
-    btn.setAttribute('aria-expanded', 'false');
-    menu.classList.remove('open');
+    $('plugin-dropdown-btn').setAttribute('aria-expanded', 'false');
+    $('plugin-dropdown-menu').classList.remove('open');
 }
 
-// ---------- Topbar nav active state ----------
-
 function updateTopbarNav(pid) {
-    document.querySelectorAll('.topbar-nav-link').forEach(link => link.classList.remove('active'));
-    if (pid === 'about') {
-        $('nav-about')?.classList.add('active');
-    } else if (pid === 'support') {
-        $('nav-support')?.classList.add('active');
-    } else {
-        $('nav-plugins')?.classList.add('active');
-    }
+    document.querySelectorAll('.topbar-nav-link').forEach(link => {
+        link.classList.toggle('active', link.dataset.nav === pid);
+    });
 }
 
 // ---------- marked.js config ----------
@@ -162,52 +168,34 @@ function serializeNode(node) {
 }
 
 function hasMeaningfulContent(node) {
-    if (node.nodeType === Node.TEXT_NODE) {
-        return node.textContent.trim().length > 0;
-    }
-
-    return node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'BR';
+    return node.nodeType === Node.TEXT_NODE ? node.textContent.trim().length > 0 : (node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'BR');
 }
 
 function isAllowedCaptionNode(node) {
-    if (node.nodeType === Node.TEXT_NODE) return true;
-    return node.nodeType === Node.ELEMENT_NODE && CAPTION_TAGS.has(node.tagName);
+    return node.nodeType === Node.TEXT_NODE || (node.nodeType === Node.ELEMENT_NODE && CAPTION_TAGS.has(node.tagName));
 }
 
 function trimTrailingWhitespace(nodes) {
     const trimmed = [...nodes];
-
     while (trimmed.length > 0) {
         const last = trimmed.at(-1);
-        if (last.nodeType === Node.TEXT_NODE && last.textContent.trim().length === 0) {
-            trimmed.pop();
-            continue;
-        }
-
-        if (last.nodeType === Node.ELEMENT_NODE && last.tagName === 'BR') {
-            trimmed.pop();
-            continue;
-        }
-
+        if (last.nodeType === Node.TEXT_NODE && last.textContent.trim().length === 0) { trimmed.pop(); continue; }
+        if (last.nodeType === Node.ELEMENT_NODE && last.tagName === 'BR') { trimmed.pop(); continue; }
         break;
     }
-
     return trimmed;
 }
 
 function parseImageCardParagraph(paragraph) {
     const childNodes = Array.from(paragraph.childNodes);
-    const imageIndex = childNodes.findIndex(
-        (node) => node.nodeType === Node.ELEMENT_NODE && node.tagName === 'IMG'
-    );
-
+    const imageIndex = childNodes.findIndex(node => node.nodeType === Node.ELEMENT_NODE && node.tagName === 'IMG');
     if (imageIndex === -1) return null;
 
     const image = childNodes[imageIndex];
     const beforeNodes = trimTrailingWhitespace(childNodes.slice(0, imageIndex));
     const afterNodes = childNodes.slice(imageIndex + 1);
 
-    if (afterNodes.some((node) => !isAllowedCaptionNode(node))) return null;
+    if (afterNodes.some(node => !isAllowedCaptionNode(node))) return null;
 
     return {
         image,
@@ -220,45 +208,79 @@ function parseImageCardParagraph(paragraph) {
 function createImageCard(image, captionHtml) {
     const figure = document.createElement('figure');
     figure.className = 'image-card';
-
     image.classList.add('image-card-image');
+    image.loading = 'lazy'; // Add native lazy loading
     figure.appendChild(image);
 
-    if (!captionHtml) return figure;
-
-    const figcaption = document.createElement('figcaption');
-    figcaption.className = 'image-card-caption';
-    figcaption.innerHTML = captionHtml;
-    figure.appendChild(figcaption);
-
+    if (captionHtml) {
+        const figcaption = document.createElement('figcaption');
+        figcaption.className = 'image-card-caption';
+        figcaption.innerHTML = captionHtml;
+        figure.appendChild(figcaption);
+    }
     return figure;
 }
 
 function decorateMarkdownImages() {
     const viewer = $('markdown-viewer');
-    if (!viewer) return;
-
-    Array.from(viewer.querySelectorAll('p')).forEach((p) => {
+    // Only target paragraphs that actually contain images to reduce DOM load
+    viewer.querySelectorAll('p img').forEach((img) => {
+        const p = img.closest('p');
+        if (!p) return;
+        
         const imageCard = parseImageCardParagraph(p);
         if (!imageCard) return;
 
         const figure = createImageCard(imageCard.image, imageCard.hasLeadingContent ? '' : imageCard.captionHtml);
-
         if (imageCard.hasLeadingContent) {
             const textParagraph = document.createElement('p');
             textParagraph.innerHTML = imageCard.beforeHtml;
             p.replaceWith(textParagraph, figure);
-            return;
+        } else {
+            p.replaceWith(figure);
         }
-
-        p.replaceWith(figure);
     });
 }
 
 async function renderMarkdownDoc(path) {
-    const res = await fetch(path);
-    $('markdown-viewer').innerHTML = res.ok ? marked.parse(await res.text()) : 'File not found.';
-    decorateMarkdownImages();
+    const viewer = $('markdown-viewer');
+    
+    // 1. Check HTML cache first (Fastest)
+    if (htmlCache.has(path)) {
+        viewer.innerHTML = htmlCache.get(path);
+        decorateMarkdownImages();
+        return;
+    }
+
+    // 2. Check Raw cache and parse
+    if (docCache.has(path)) {
+        const html = marked.parse(docCache.get(path));
+        htmlCache.set(path, html);
+        viewer.innerHTML = html;
+        decorateMarkdownImages();
+        return;
+    }
+
+    // 3. Network Fetch
+    viewer.classList.add('loading');
+    try {
+        const res = await fetch(path);
+        if (res.ok) {
+            const text = await res.text();
+            const html = marked.parse(text);
+            docCache.set(path, text);
+            htmlCache.set(path, html);
+            viewer.innerHTML = html;
+            decorateMarkdownImages();
+        } else {
+            viewer.innerHTML = 'File not found.';
+        }
+    } catch (e) {
+        console.error(e);
+        viewer.innerHTML = 'Failed to load document.';
+    } finally {
+        viewer.classList.remove('loading');
+    }
 }
 
 // ---------- Routing ----------
@@ -269,7 +291,6 @@ async function route() {
 
     const [_, pid, file, extra] = location.hash.split('/');
 
-    // Handle empty hash (main entry point) -> redirect to About
     if (!pid && manifest.about) {
         const entry = manifest.about[currentLang] || manifest.about[manifest.defaultLang];
         location.hash = `#/about/${entry.file.split('/').pop()}`;
@@ -278,64 +299,44 @@ async function route() {
 
     updateTopbarNav(pid);
 
-    // About page
-    const aboutEntry = manifest.about && manifest.about[currentLang];
-    const isAbout = pid === 'about' && aboutEntry;
+    // Handle pages
+    if (pid === 'about' || pid === 'support') {
+        const entry = manifest[pid] && (manifest[pid][currentLang] || manifest[pid][manifest.defaultLang]);
+        if (entry) {
+            const selector = document.querySelector('.plugin-selector');
+            if (selector) selector.style.display = 'none';
+            $('plugin-dropdown-label').textContent = entry.label;
+            $('menu-list').innerHTML = `<li class="active"><a href="#/${pid}/${entry.file.split('/').pop()}">${entry.label}</a></li>`;
+            await renderMarkdownDoc(`docs/${entry.file}`);
+            if (!currentSkipScroll) window.scrollTo(0, 0);
+            return;
+        }
+    }
 
-    if (isAbout) {
-        const pluginSelector = document.querySelector('.plugin-selector');
-        if (pluginSelector) pluginSelector.style.display = 'none';
+    if (pid === 'plugins') {
+        const selector = document.querySelector('.plugin-selector');
+        if (selector) selector.style.display = 'block';
 
-        $('plugin-dropdown-label').textContent = aboutEntry.label;
-        $('menu-list').innerHTML = `<li class="active"><a href="#/about/${aboutEntry.file.split('/').pop()}">${aboutEntry.label}</a></li>`;
-        await renderMarkdownDoc(`docs/${aboutEntry.file}`);
+        const plugin = manifest.plugins.find(p => p.id === file) || manifest.plugins[0];
+        const langData = plugin.langs[currentLang] || plugin.langs[manifest.defaultLang];
+        const doc = langData.docs.find(d => d.file === extra) || langData.docs[0];
+
+        if (location.hash !== `#/plugins/${plugin.id}/${doc.file}`) {
+            location.hash = `#/plugins/${plugin.id}/${doc.file}`;
+            return;
+        }
+
+        $('plugin-dropdown-label').textContent = plugin.name;
+        $('plugin-dropdown-menu').querySelectorAll('li').forEach(li => {
+            li.classList.toggle('active', li.querySelector('button')?.dataset.pid === plugin.id);
+        });
+        $('menu-list').innerHTML = langData.docs.map(d =>
+            `<li class="${d.file === doc.file ? 'active' : ''}"><a href="#/plugins/${plugin.id}/${d.file}">${d.label}</a></li>`
+        ).join('');
+
+        await renderMarkdownDoc(`docs/${langData.path}/${doc.file}`);
         if (!currentSkipScroll) window.scrollTo(0, 0);
-        return;
     }
-
-    // Support page
-    const supportEntry = manifest.support && manifest.support[currentLang];
-    const isSupport = pid === 'support' && supportEntry;
-
-    if (isSupport) {
-        const pluginSelector = document.querySelector('.plugin-selector');
-        if (pluginSelector) pluginSelector.style.display = 'none';
-
-        $('plugin-dropdown-label').textContent = supportEntry.label;
-        $('menu-list').innerHTML = `<li class="active"><a href="#/support/${file}">${supportEntry.label}</a></li>`;
-        await renderMarkdownDoc(`docs/${supportEntry.file}`);
-        if (!currentSkipScroll) window.scrollTo(0, 0);
-        return;
-    }
-
-    // Plugin page
-    if (pid !== 'plugins') return;
-
-    const pluginSelector = document.querySelector('.plugin-selector');
-    if (pluginSelector) pluginSelector.style.display = 'block';
-
-    const plugin = manifest.plugins.find(p => p.id === file) || manifest.plugins[0];
-    const langData = plugin.langs[currentLang] || plugin.langs[manifest.defaultLang];
-    const doc = langData.docs.find(d => d.file === extra) || langData.docs[0];
-
-    // URL correction
-    if (location.hash !== `#/plugins/${plugin.id}/${doc.file}`) {
-        location.hash = `#/plugins/${plugin.id}/${doc.file}`;
-        return;
-    }
-
-    // Update UI
-    $('plugin-dropdown-label').textContent = plugin.name;
-    $('plugin-dropdown-menu').querySelectorAll('li').forEach(li => {
-        li.classList.toggle('active', li.querySelector('button')?.dataset.pid === plugin.id);
-    });
-    $('menu-list').innerHTML = langData.docs.map(d =>
-        `<li class="${d.file === doc.file ? 'active' : ''}"><a href="#/plugins/${plugin.id}/${d.file}">${d.label}</a></li>`
-    ).join('');
-
-    // Load document
-    await renderMarkdownDoc(`docs/${langData.path}/${doc.file}`);
-    if (!currentSkipScroll) window.scrollTo(0, 0);
 }
 
 // ---------- Init ----------
@@ -344,60 +345,38 @@ async function init() {
     try {
         manifest = await (await fetch('docs/manifest.json')).json();
 
-        // Restore saved lang
         const saved = localStorage.getItem('lang');
         if (saved && manifest.langs.includes(saved)) {
             currentLang = saved;
             document.documentElement.lang = saved;
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.lang === saved);
-            });
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === saved));
         }
 
         rebuildPluginSelector();
 
-        $('plugin-dropdown-btn').addEventListener('click', () => {
+        $('plugin-dropdown-btn').onclick = () => {
             const isOpen = $('plugin-dropdown-btn').getAttribute('aria-expanded') === 'true';
             isOpen ? closePluginDropdown() : openPluginDropdown();
-        });
+        };
 
-        document.addEventListener('click', (e) => {
-            if (!$('plugin-dropdown').contains(e.target)) closePluginDropdown();
-        });
+        document.onclick = (e) => { if (!$('plugin-dropdown').contains(e.target)) closePluginDropdown(); };
 
-        // Update About nav link href for current lang
-        if (manifest.about) {
-            const aboutEntry = manifest.about[currentLang] || manifest.about[manifest.defaultLang];
-            const aboutLink = $('nav-about');
-            if (aboutLink) aboutLink.href = `#/about/${aboutEntry.file.split('/').pop()}`;
-        }
-
-        // Update Support nav link href for current lang
-        if (manifest.support) {
-            const supportEntry = manifest.support[currentLang] || manifest.support[manifest.defaultLang];
-            const supportLink = $('nav-support');
-            if (supportLink) supportLink.href = `#/support/${supportEntry.file.split('/').pop()}`;
-        }
-
-        // Plugins nav link: go to first plugin
         const pluginsLink = $('nav-plugins');
         if (pluginsLink && manifest.plugins?.length) {
-            pluginsLink.addEventListener('click', (e) => {
+            pluginsLink.onclick = (e) => {
                 e.preventDefault();
                 const p = manifest.plugins[0];
-                const langData = p.langs[currentLang] || p.langs[manifest.defaultLang];
-                location.hash = `#/plugins/${p.id}/${langData.docs[0].file}`;
-            });
+                const ld = p.langs[currentLang] || p.langs[manifest.defaultLang];
+                location.hash = `#/plugins/${p.id}/${ld.docs[0].file}`;
+            };
         }
 
-        // Lang toggle buttons
         document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (btn.dataset.lang !== currentLang) setLang(btn.dataset.lang);
-            });
+            btn.onclick = () => { if (btn.dataset.lang !== currentLang) setLang(btn.dataset.lang); };
         });
 
         window.onhashchange = route;
+        prefetchDocs();
         route();
     } catch (e) {
         $('markdown-viewer').innerHTML = 'Failed to load manifest.';
@@ -405,20 +384,4 @@ async function init() {
     }
 }
 
-// ---------- QR Popup ----------
-
-function showQRPopup(src) {
-    document.getElementById('qr-popup-img').src = src;
-    document.getElementById('qr-popup').style.display = 'flex';
-}
-
-function closeQRPopup() {
-    document.getElementById('qr-popup').style.display = 'none';
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    init();
-    document.getElementById('qr-popup').addEventListener('click', (e) => {
-        if (e.target === e.currentTarget) closeQRPopup();
-    });
-});
+document.addEventListener('DOMContentLoaded', init);
