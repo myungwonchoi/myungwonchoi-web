@@ -4,4 +4,4 @@
 > 여러분의 후원은 더 나은 기능 개발과 유지보수에 큰 힘이 됩니다.  
 > 감사합니다!
 
-<iframe id='kofiframe' src='https://ko-fi.com/myungwonchoi/?hidefeed=true&widget=true&embed=true' height='650' title='myungwonchoi'></iframe>
+<iframe id='kofiframe' src='https://ko-fi.com/myungwonchoi/?hidefeed=true&widget=true&embed=true' height='700' title='myungwonchoi'></iframe>

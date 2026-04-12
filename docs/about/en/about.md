@@ -6,7 +6,7 @@
 
 I started as a motion graphic designer and now work as a Technical Artist, focusing on the intersection of technology and art.
 
-
+I am particularly interested in developing 3D software plugins that are useful in professional workflows.
 
 <div style="clear: both;"></div>
 

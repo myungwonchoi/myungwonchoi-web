@@ -1,4 +1,4 @@
-# 디스코드 Webhook 설정 가이드
+# 디스코드 Webhook 설정 방법
 
 > 디스코드 채널로 RenderTracker 알림을 받는 방법을 안내합니다.  
 > PC에 디스코드가 설치되어 있어야 합니다.
@@ -36,12 +36,13 @@ RenderTracker 알림을 받을 디스코드 서버가 필요합니다. (DM으로
 
 ## 2. RenderTracker에서 디스코드 Webhook URL 적용
 
-1.  앱 우측 상단의 **`디스코드 아이콘`** 을 활성화합니다.  
+1.  앱 우측 상단의 **`종 버튼`** 에 마우스를 올려 **`디스코드 버튼`** 을 활성화합니다.  
+(기본적으로 활성화되어 있습니다.)  
 ![discord-activate-discord-button | w-300](res/rendertracker/discord-activate-discord-button.webp)
 
 <br>
 
-2.  앱 우측 상단의 **`톱니바퀴 아이콘`** 을 클릭합니다.  
+2.  앱 우측 상단의 **`톱니바퀴 버튼`** 을 클릭합니다.  
 ![click-settings-button | w-300](res/rendertracker/click-settings-button.webp)
 
 <br>

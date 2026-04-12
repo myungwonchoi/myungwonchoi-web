@@ -1,4 +1,4 @@
-# Discord Webhook Setup Guide
+# Discord Webhook Setup
 
 > This guide explains how to receive RenderTracker notifications in a Discord channel.
 > Discord must be installed on your PC.

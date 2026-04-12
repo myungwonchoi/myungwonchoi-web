@@ -229,6 +229,11 @@ select {
     pointer-events: none;
 }
 
+#markdown-viewer.loading-shell {
+    opacity: 1;
+    pointer-events: none;
+}
+
 .plugin-selector {
     margin-bottom: var(--space-4);
 }
@@ -328,6 +333,72 @@ select {
 .plugin-dropdown-menu li.active button {
     color: var(--text-heading);
     background: var(--accent-muted);
+}
+
+.skeleton-line,
+.skeleton-block {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.skeleton-line::after,
+.skeleton-block::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.08) 45%,
+            rgba(255, 255, 255, 0.16) 50%,
+            rgba(255, 255, 255, 0.08) 55%,
+            transparent 100%);
+    animation: skeleton-shimmer 1.35s ease-in-out infinite;
+}
+
+.skeleton-line {
+    height: 14px;
+    margin-bottom: 10px;
+}
+
+.skeleton-line.short {
+    width: 58%;
+}
+
+.skeleton-line.medium {
+    width: 72%;
+}
+
+.skeleton-line.title {
+    width: 46%;
+    height: 34px;
+    margin-bottom: 24px;
+}
+
+.skeleton-line.skeleton-pill {
+    height: 34px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+}
+
+.skeleton-block {
+    height: 220px;
+    margin: 28px 0 18px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.045);
+}
+
+.doc-skeleton {
+    width: 100%;
+    max-width: var(--content-width);
+}
+
+@keyframes skeleton-shimmer {
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 nav ul {

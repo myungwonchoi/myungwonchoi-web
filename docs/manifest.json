@@ -37,6 +37,14 @@
                             "file": "intro.md"
                         },
                         {
+                            "label": "Cinema 4D 플러그인",
+                            "file": "cinema4d.md"
+                        },
+                        {
+                            "label": "Blender 애드온",
+                            "file": "blender.md"
+                        },
+                        {
                             "label": "디스코드 Webhook",
                             "file": "discord.md"
                         },

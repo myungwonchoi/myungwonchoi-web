@@ -7,6 +7,50 @@ let skipScroll = false;
 const docCache = new Map();     // Raw markdown text
 const htmlCache = new Map();    // Parsed HTML content
 
+function getRouteIntent() {
+    const [_, pid] = location.hash.split('/');
+    return pid || 'about';
+}
+
+function showPluginLoadingShell() {
+    const selector = document.querySelector('.plugin-selector');
+    if (selector) selector.style.display = 'block';
+
+    updateTopbarNav('plugins');
+    closePluginDropdown();
+
+    $('plugin-dropdown-label').textContent = 'Loading plugins...';
+    $('plugin-dropdown-menu').innerHTML = `
+        <li class="active skeleton-line skeleton-pill"></li>
+        <li class="skeleton-line skeleton-pill"></li>
+        <li class="skeleton-line skeleton-pill"></li>
+    `;
+
+    $('menu-list').innerHTML = `
+        <li class="skeleton-line"></li>
+        <li class="skeleton-line"></li>
+        <li class="skeleton-line short"></li>
+    `;
+
+    const viewer = $('markdown-viewer');
+    viewer.classList.add('loading-shell');
+    viewer.innerHTML = `
+        <div class="doc-skeleton" aria-hidden="true">
+            <div class="skeleton-line title"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+            <div class="skeleton-block"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line medium"></div>
+        </div>
+    `;
+}
+
+function clearLoadingShell() {
+    $('markdown-viewer').classList.remove('loading-shell');
+}
+
 // ---------- Pre-fetching ----------
 
 async function prefetchDocs() {
@@ -244,6 +288,7 @@ function decorateMarkdownImages() {
 
 async function renderMarkdownDoc(path) {
     const viewer = $('markdown-viewer');
+    clearLoadingShell();
     
     // 1. Check HTML cache first (Fastest)
     if (htmlCache.has(path)) {
@@ -305,6 +350,7 @@ async function route() {
         if (entry) {
             const selector = document.querySelector('.plugin-selector');
             if (selector) selector.style.display = 'none';
+            clearLoadingShell();
             $('plugin-dropdown-label').textContent = entry.label;
             $('menu-list').innerHTML = `<li class="active"><a href="#/${pid}/${entry.file.split('/').pop()}">${entry.label}</a></li>`;
             await renderMarkdownDoc(`docs/${entry.file}`);
@@ -343,6 +389,12 @@ async function route() {
 
 async function init() {
     try {
+        if (getRouteIntent() === 'plugins') {
+            showPluginLoadingShell();
+        } else {
+            updateTopbarNav(getRouteIntent());
+        }
+
         manifest = await (await fetch('docs/manifest.json')).json();
 
         const saved = localStorage.getItem('lang');
@@ -365,6 +417,7 @@ async function init() {
         if (pluginsLink && manifest.plugins?.length) {
             pluginsLink.onclick = (e) => {
                 e.preventDefault();
+                showPluginLoadingShell();
                 const p = manifest.plugins[0];
                 const ld = p.langs[currentLang] || p.langs[manifest.defaultLang];
                 location.hash = `#/plugins/${p.id}/${ld.docs[0].file}`;
