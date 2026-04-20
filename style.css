@@ -563,6 +563,12 @@ hr {
         0 10px 24px rgba(0, 0, 0, 0.22);
 }
 
+#markdown-viewer img.profile-img {
+    width: 300px;
+    float: left;
+    margin: 0 40px 20px 0;
+}
+
 #markdown-viewer .image-card {
     margin: 0 0 0.55rem;
     width: fit-content;
@@ -782,5 +788,13 @@ hr {
 
     #markdown-viewer h1 {
         font-size: 1.9rem;
+    }
+
+    #markdown-viewer img.profile-img {
+        float: none;
+        display: block;
+        margin: 0 auto 24px;
+        width: 100%;
+        max-width: 300px;
     }
 }

@@ -8,6 +8,8 @@
 > `Windows 11`, `Blender 4.2` 이상, `Cinema 4D 2023.2.2, 2024.5.1, 2025.3.0, 2026.1.4` 버전을 지원합니다.  
 > *Cinema 4D 세부 버전 이하에서는 작동하지 않을 수 있습니다.*  
 
+<a href="https://ddingone.gumroad.com/l/RenderTracker" target="_blank"><button>Gumroad에서 다운로드</button></a>
+
 ---
 ![guide-mainui | w-800](res/rendertracker/guide-mainui.webp)  
 *RenderTracker UI*

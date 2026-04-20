@@ -51,6 +51,10 @@
                         {
                             "label": "텔레그램 Bot",
                             "file": "telegram.md"
+                        },
+                        {
+                            "label": "패치 노트",
+                            "file": "patchnotes.md"
                         }
                     ]
                 },
@@ -76,6 +80,10 @@
                         {
                             "label": "Telegram Bot",
                             "file": "telegram.md"
+                        },
+                        {
+                            "label": "Patch Notes",
+                            "file": "patchnotes.md"
                         }
                     ]
                 }

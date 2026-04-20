@@ -1,6 +1,6 @@
 # About me
 
-<img src="res/about/profile.webp" style="width: 300px; float: left; margin: 0 40px 20px 0;">
+<img src="res/about/profile.webp" class="profile-img">
 
 ### 안녕하세요, 최명원 입니다.
 

@@ -6,6 +6,8 @@
 > Supports `Windows 11`, `Blender 4.2` or later and `Cinema 4D 2023.2.2, 2024.5.1, 2025.3.0, 2026.1.4`.  
 > *It may not work for Cinema 4D versions below these specific releases.*
 
+<a href="https://ddingone.gumroad.com/l/RenderTracker" target="_blank"><button>Download on Gumroad</button></a>
+
 ---
 ![guide-mainui | w-800](res/rendertracker/guide-mainui.webp)  
 *RenderTracker UI*
